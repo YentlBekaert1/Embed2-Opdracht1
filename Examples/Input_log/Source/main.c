@@ -1,8 +1,8 @@
 #include "PJ_RPI.h"
 #include <stdio.h>
 #include <stdlib.h>
-//#include <my_global.h>
 #include <mysql.h>
+#include <time.h>
 
 int buttonPress(int g){
 	int return_value;
@@ -31,6 +31,9 @@ int main()
 
 	 MYSQL *con = mysql_init(NULL);
 
+	time_t current_time;
+	struct tm tm = *localtime(&current_time);
+
   if (con == NULL) 
   {
       fprintf(stderr, "%s\n", mysql_error(con));
@@ -45,42 +48,21 @@ int main()
       exit(1);
   }  
 
-/*   if (mysql_query(con, "CREATE DATABASE testdb")) 
+ if (mysql_query(con, "USE inputs")) 
   {
       fprintf(stderr, "%s\n", mysql_error(con));
       mysql_close(con);
       exit(1);
   }
- */
-  mysql_close(con);
+ 
+
 	int pressed = 0;
 	int old_value =0;
 	int value = 0;
 
 	while(1)
 	{
-		// Toggle 17 (blink a led!)
-		//GPIO_SET = 1 << 17;
-		//sleep(1);
-
-		//GPIO_CLR = 1 << 17;
-		//sleep(1);
-		
-
-		//int input_value = GPIO_READ(27);
-		//char number_str[1];
-		//sprintf(number_str, "%d", input_value);
-		//printf("waarde: %s\n", number_str);
-		/*if (GPIO_READ(27)) // !=0 <-> bit is 1 <- port is HIGH=3.3V
-    		input_27_state = 1;
-		else
-			input_27_state = 0;
-
-		if(old_state != input_27_state)
-			printf("state changed");
-			old_state = input_27_state;	
-			sleep(1);*/
-		
+	
 		int value_input_27 = buttonPress(27);
 
 		if(value_input_27 == 1 && pressed == 0){
@@ -95,11 +77,27 @@ int main()
 			char number_str[1];
 			sprintf(number_str, "%d", value);
 			printf("value: %s\n", number_str);
+
+			current_time = time(NULL);
+			tm = *localtime(&current_time);
+			char time[1024];
+			sprintf(time, "%d-%02d-%02d %02d:%02d:%02d", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+
+			char Query[1024];
+			sprintf(Query, "INSERT INTO subjects( time, input, state) VALUES ('%s', 27, %d)", time, value);
+
+			if (mysql_query(con, Query)) 
+			{
+					fprintf(stderr, "%s\n", mysql_error(con));
+					mysql_close(con);
+					exit(1);
+			}
 			old_value = value;
 		}
 
 	}
+
+	mysql_close(con);
 	return 0;	
 }
-
 
