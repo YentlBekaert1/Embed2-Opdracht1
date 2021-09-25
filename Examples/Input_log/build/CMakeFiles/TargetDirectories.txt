@@ -1,0 +1,3 @@
+/home/pi/embed2/Opdracht1/Embed2-Opdracht1/Examples/Input_log/build/CMakeFiles/rebuild_cache.dir
+/home/pi/embed2/Opdracht1/Embed2-Opdracht1/Examples/Input_log/build/CMakeFiles/Input_log.dir
+/home/pi/embed2/Opdracht1/Embed2-Opdracht1/Examples/Input_log/build/CMakeFiles/edit_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/Input_log.dir/main.c.o  -o Input_log  -L/usr/lib/arm-linux-gnueabihf/ -lmariadb -lPJ_RPI 
