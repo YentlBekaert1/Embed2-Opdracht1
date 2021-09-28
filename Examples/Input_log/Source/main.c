@@ -17,6 +17,13 @@ int main()
 	INP_GPIO(22);
 	INP_GPIO(26);
 
+	//error function
+	void finish_with_error(MYSQL *con){
+		fprintf(stderr, "%s\n", mysql_error(con));
+		mysql_close(con);
+		exit(1);
+	}
+	
 	//add MYSQL
 	MYSQL *con = mysql_init(NULL);
 	if (con == NULL) 
@@ -29,17 +36,13 @@ int main()
 	if (mysql_real_connect(con, "localhost", "root", "root_pswd", 
 			NULL, 0, NULL, 0) == NULL) 
 	{
-		fprintf(stderr, "%s\n", mysql_error(con));
-		mysql_close(con);
-		exit(1);
+		finish_with_error(con);
 	}  
 
 	//USE Databese inputs
 	if (mysql_query(con, "USE inputs")) 
 	{
-		fprintf(stderr, "%s\n", mysql_error(con));
-		mysql_close(con);
-		exit(1);
+		finish_with_error(con);
 	}
 
 	//create time variables
@@ -60,9 +63,7 @@ int main()
 		//execute the query
 		if (mysql_query(con, Query)) 
 		{
-				fprintf(stderr, "%s\n", mysql_error(con));
-				mysql_close(con);
-				exit(1);
+			finish_with_error(con);
 		}
 	}
 
