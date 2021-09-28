@@ -1,0 +1,3 @@
+/home/pi/embed2/Opdracht1/Embed2-Opdracht1/Examples/uitbreiding_libgpio/build/CMakeFiles/rebuild_cache.dir
+/home/pi/embed2/Opdracht1/Embed2-Opdracht1/Examples/uitbreiding_libgpio/build/CMakeFiles/Uitbreiding_libgpio.dir
+/home/pi/embed2/Opdracht1/Embed2-Opdracht1/Examples/uitbreiding_libgpio/build/CMakeFiles/edit_cache.dir

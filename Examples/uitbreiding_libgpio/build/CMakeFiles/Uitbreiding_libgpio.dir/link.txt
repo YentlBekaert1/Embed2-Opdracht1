@@ -1,0 +1,1 @@
+/usr/bin/cc   -rdynamic CMakeFiles/Uitbreiding_libgpio.dir/main.c.o  -o Uitbreiding_libgpio  -lmariadb -lgpiod 
