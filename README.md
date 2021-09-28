@@ -11,3 +11,4 @@ Basisgedeelte:
     Maak een C programma die enkele inputs monitort
     log  de schakeltijdstippen en niveaus in een MySQL database
  
+https://github.com/tranter/blogs/blob/master/gpio/part9/example.c
