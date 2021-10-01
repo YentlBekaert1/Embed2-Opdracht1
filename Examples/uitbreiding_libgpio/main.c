@@ -116,28 +116,9 @@ int main(int argc, char **argv)
   }
 
 //function to read change on input
-	int buttonPress(int g){
-	    if(g == 27){
-			val = gpiod_line_get_value(Input27);
-			if (val < 0) {
-			perror("Read line input failed\n");
-			return 1;
-			}
-		}else if(g == 26){
-			val = gpiod_line_get_value(Input26);
-			if (val < 0) {
-			perror("Read line input failed\n");
-			return 1;
-			}
-		}else if(g == 22){
-			val = gpiod_line_get_value(Input22);
-			if (val < 0) {
-			perror("Read line input failed\n");
-			return 1;
-			}
-		}
-
+	int buttonPress(struct gpiod_line *g){
 		int return_value;
+		val = gpiod_line_get_value(g);
 		if (val){// !=0 <-> bit is 1 <- port is HIGH=3.3V
 			return_value = 1;
 		}
@@ -162,7 +143,7 @@ int main(int argc, char **argv)
 	//endless loop
 	while(1)
 	{
-		int return_value_27 = buttonPress(27);
+		int return_value_27 = buttonPress(Input27);
 		//for debouncing
 		if(return_value_27 == 1 && pressed_27 == 0){
 				value_27 = 1;
@@ -181,7 +162,7 @@ int main(int argc, char **argv)
 				old_value_27 = value_27;
 		}
 
-		int return_value_22 = buttonPress(22);
+		int return_value_22 = buttonPress(Input22);
 		//for debouncing
 		if(return_value_22 == 1 && pressed_22 == 0){
 				value_22 = 1;
@@ -200,7 +181,7 @@ int main(int argc, char **argv)
 				old_value_22 = value_22;
 		}
 
-		int return_value_26 = buttonPress(26);
+		int return_value_26 = buttonPress(Input26);
 		//for debouncing
 		if(return_value_26 == 1 && pressed_26 == 0){
 				value_26 = 1;
